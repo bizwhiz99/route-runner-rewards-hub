@@ -1,22 +1,18 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
-import StatsSection from '@/components/dashboard/StatsSection';
 import PerformanceCharts from '@/components/dashboard/PerformanceCharts';
-import LeaderboardTable from '@/components/dashboard/LeaderboardTable';
 
-const Index = () => {
+const PerformancePage = () => {
   return (
     <DashboardLayout>
       <div className="space-y-8 animate-fade-in">
-        <DashboardHeader title="Driver Performance Dashboard" />
-        <StatsSection />
+        <DashboardHeader title="Driver Performance" />
         <PerformanceCharts />
-        <LeaderboardTable />
       </div>
     </DashboardLayout>
   );
 };
 
-export default Index;
+export default PerformancePage;
