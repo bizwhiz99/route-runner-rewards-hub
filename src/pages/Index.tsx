@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
 import StatsSection from '@/components/dashboard/StatsSection';
 import PerformanceCharts from '@/components/dashboard/PerformanceCharts';
 import LeaderboardTable from '@/components/dashboard/LeaderboardTable';
+import FuelCardSpend from '@/components/dashboard/FuelCardSpend';
 
 const Index = () => {
   return (
@@ -13,6 +14,7 @@ const Index = () => {
         <DashboardHeader title="Driver Performance Dashboard" />
         <StatsSection />
         <PerformanceCharts />
+        <FuelCardSpend />
         <LeaderboardTable />
       </div>
     </DashboardLayout>
