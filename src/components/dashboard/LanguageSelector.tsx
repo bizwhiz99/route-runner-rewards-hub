@@ -19,7 +19,7 @@ const languages = [
 ];
 
 const LanguageSelector = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   return (
     <Select

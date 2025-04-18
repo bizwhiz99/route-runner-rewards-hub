@@ -1,489 +1,857 @@
-
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
-const resources = {
-  en: {
-    translation: {
-      // Navigation
-      navigation: {
-        dashboard: "Dashboard",
-        performance: "Performance",
-        progress: "Progress",
-        leaderboard: "Leaderboard",
-        team: "Team",
-        settings: "Settings",
-        logout: "Logout"
-      },
-      // Dashboard sections
-      appName: "RouteRunner",
-      dashboardTitle: "Driver Performance Dashboard",
-      leaderboard: "Driver Leaderboard & Rewards",
-      tabs: {
-        leaderboard: "Leaderboard",
-        rewards: "Rewards Program",
-        redeem: "Redeem Points",
-        spend: "Card Spend",
-        manager: "Manager View"
-      },
-      // Charts and metrics
-      metrics: {
-        mileageTracking: "Mileage Tracking",
-        distance: "Daily and weekly distance driven",
-        performanceMetrics: "Performance Metrics",
-        safetyScores: "Safety scores and fuel efficiency",
-        weekly: "Weekly",
-        monthly: "Monthly",
-        miles: "Miles",
-        safetyScore: "Safety Score",
-        fuelEfficiency: "Fuel Efficiency (mpg)",
-        weeklyMileage: "Weekly Mileage",
-        overallRank: "Overall Rank",
-        milesLabel: "miles",
-        placesUp: "places up"
-      },
-      // Driver actions
-      driverActions: "Driver Actions (Weekly Update)",
-      weekOf: "Week of",
-      points: "pts",
-      deadline: "Deadline",
-      difficulty: {
-        easy: "easy",
-        medium: "medium",
-        hard: "hard"
-      },
-      // Rewards
-      availablePoints: "Available Points",
-      monthlyPoints: "Monthly Points",
-      redeemedPoints: "Points Redeemed",
-      tierStatus: "Driver Tier Status",
-      untilNextTier: "points until {{tier}} Tier",
-      categories: "Categories",
-      marketplace: "Rewards Marketplace",
-      pointsBalance: "Your Points Balance",
-      redeemButton: "Redeem",
-      // Filters
-      filters: {
-        label: "Filters:",
-        region: "Region",
-        team: "Team",
-        period: "Period",
-        groupBy: "Group by:",
-        sortBy: "Sort by",
-        allTeams: "All Teams",
-        allRegions: "All Regions",
-        allTiers: "All Tiers"
-      },
-      // Common
-      rank: "Rank",
-      driver: "Driver",
-      team: "Team",
-      region: "Region",
-      tier: "Tier",
-      points: "Points",
-      onTime: "On-Time %",
-      routeAdherence: "Route Adherence",
-      // Manager view
-      managerView: {
-        title: "Fleet Manager View",
-        driverDistribution: "Driver Distribution",
-        spendAnalysis: "Fuel vs Non-Fuel Spend by Tier",
-        teamPerformance: "Team Performance",
-        totalDrivers: "Total drivers in {{region}}",
-        avgSpend: "Average monthly spend per driver shown in dollars",
-        avgPoints: "Average monthly points earned and redeemed per driver by team"
-      },
-      // Fuel card
-      fuelCard: {
-        title: "Fuel Card Spend",
-        region: "Region", 
-        driverTier: "Driver Tier",
-        avgFuelSpend: "Average Fuel Spend",
-        nonFuelTransactions: "Non-Fuel Transactions",
-        fromLastMonth: "from last month"
-      }
-    }
-  },
-  es: {
-    translation: {
-      navigation: {
-        dashboard: "Panel de Control",
-        performance: "Rendimiento",
-        progress: "Progreso",
-        leaderboard: "Clasificación",
-        team: "Equipo",
-        settings: "Ajustes",
-        logout: "Cerrar Sesión"
-      },
-      appName: "RouteRunner",
-      dashboardTitle: "Panel de Rendimiento del Conductor",
-      leaderboard: "Clasificación de Conductores y Recompensas",
-      tabs: {
-        leaderboard: "Clasificación",
-        rewards: "Programa de Recompensas",
-        redeem: "Canjear Puntos",
-        spend: "Gastos de Tarjeta",
-        manager: "Vista de Gerente"
-      },
-      metrics: {
-        mileageTracking: "Seguimiento de Kilometraje",
-        distance: "Distancia diaria y semanal recorrida",
-        performanceMetrics: "Métricas de Rendimiento",
-        safetyScores: "Puntuaciones de seguridad y eficiencia de combustible",
-        weekly: "Semanal",
-        monthly: "Mensual",
-        miles: "Millas",
-        safetyScore: "Puntuación de Seguridad",
-        fuelEfficiency: "Eficiencia de Combustible (mpg)",
-        weeklyMileage: "Kilometraje Semanal",
-        overallRank: "Clasificación General",
-        milesLabel: "millas",
-        placesUp: "puestos arriba"
-      },
-      driverActions: "Acciones del Conductor (Actualización Semanal)",
-      weekOf: "Semana de",
-      points: "pts",
-      deadline: "Fecha límite",
-      difficulty: {
-        easy: "fácil",
-        medium: "medio",
-        hard: "difícil"
-      },
-      availablePoints: "Puntos Disponibles",
-      monthlyPoints: "Puntos Mensuales",
-      redeemedPoints: "Puntos Canjeados",
-      tierStatus: "Estado del Nivel del Conductor",
-      untilNextTier: "puntos hasta el Nivel {{tier}}",
-      categories: "Categorías",
-      marketplace: "Mercado de Recompensas",
-      pointsBalance: "Tu Balance de Puntos",
-      redeemButton: "Canjear",
-      filters: {
-        label: "Filtros:",
-        region: "Región",
-        team: "Equipo",
-        period: "Período",
-        groupBy: "Agrupar por:",
-        sortBy: "Ordenar por",
-        allTeams: "Todos los Equipos",
-        allRegions: "Todas las Regiones",
-        allTiers: "Todos los Niveles"
-      },
-      rank: "Rango",
-      driver: "Conductor",
-      team: "Equipo",
-      region: "Región",
-      tier: "Nivel",
-      points: "Puntos",
-      onTime: "A tiempo %",
-      routeAdherence: "Adherencia a la Ruta",
-      fuelCard: {
-        title: "Gasto de Tarjeta de Combustible",
-        region: "Región",
-        driverTier: "Nivel del Conductor",
-        avgFuelSpend: "Gasto Promedio en Combustible",
-        nonFuelTransactions: "Transacciones No Combustible",
-        fromLastMonth: "desde el mes pasado"
-      },
-      managerView: {
-        title: "Vista del Gerente de Flota",
-        driverDistribution: "Distribución de Conductores",
-        spendAnalysis: "Análisis de Gastos",
-        teamPerformance: "Rendimiento del Equipo",
-        totalDrivers: "Total de conductores en {{region}}",
-        avgSpend: "Gasto mensual promedio por conductor",
-        avgPoints: "Promedio de puntos mensuales"
-      }
-    }
-  },
-  hi: {
-    translation: {
-      navigation: {
-        dashboard: "डैशबोर्ड",
-        performance: "प्रदर्शन",
-        progress: "प्रगति",
-        leaderboard: "लीडरबोर्ड",
-        team: "टीम",
-        settings: "सेटिंग्स",
-        logout: "लॉग आउट"
-      },
-      appName: "राउटरनर",
-      dashboardTitle: "ड्राइवर प्रदर्शन डैशबोर्ड",
-      leaderboard: "ड्राइवर लीडरबोर्ड और पुरस्कार",
-      tabs: {
-        leaderboard: "लीडरबोर्ड",
-        rewards: "पुरस्कार कार्यक्रम",
-        redeem: "पॉइंट्स रिडीम करें",
-        spend: "कार्ड खर्च",
-        manager: "प्रबंधक दृश्य"
-      },
-      metrics: {
-        mileageTracking: "माइलेज ट्रैकिंग",
-        distance: "दैनिक और साप्ताहिक दूरी",
-        performanceMetrics: "प्रदर्शन मैट्रिक्स",
-        safetyScores: "सुरक्षा स्कोर और ईंधन दक्षता",
-        weekly: "साप्ताहिक",
-        monthly: "मासिक",
-        miles: "मील",
-        safetyScore: "सुरक्षा स्कोर",
-        fuelEfficiency: "ईंधन दक्षता (एमपीजी)",
-        weeklyMileage: "साप्ताहिक माइलेज",
-        overallRank: "समग्र रैंक",
-        milesLabel: "मील",
-        placesUp: "स्थान ऊपर"
-      },
-      driverActions: "ड्राइवर क्रियाएं (साप्ताहिक अपडेट)",
-      weekOf: "सप्ताह",
-      points: "अंक",
-      deadline: "समय सीमा",
-      difficulty: {
-        easy: "आसान",
-        medium: "मध्यम",
-        hard: "कठिन"
-      },
-      availablePoints: "उपलब्ध अंक",
-      monthlyPoints: "मासिक अंक",
-      redeemedPoints: "रिडीम किए गए अंक",
-      tierStatus: "ड्राइवर स्तर स्थिति",
-      untilNextTier: "{{tier}} स्तर तक अंक",
-      categories: "श्रेणियाँ",
-      marketplace: "पुरस्कार बाज़ार",
-      pointsBalance: "आपका अंक शेष",
-      redeemButton: "रिडीम करें",
-      filters: {
-        label: "फ़िल्टर:",
-        region: "क्षेत्र",
-        team: "टीम",
-        period: "अवधि",
-        groupBy: "समूह द्वारा:",
-        sortBy: "क्रमबद्ध करें",
-        allTeams: "सभी टीमें",
-        allRegions: "सभी क्षेत्र",
-        allTiers: "सभी स्तर"
-      },
-      rank: "रैंक",
-      driver: "ड्राइवर",
-      team: "टीम",
-      region: "क्षेत्र",
-      tier: "स्तर",
-      points: "अंक",
-      onTime: "समय पर %",
-      routeAdherence: "मार्ग अनुपालन",
-      fuelCard: {
-        title: "ईंधन कार्ड खर्च",
-        region: "क्षेत्र",
-        driverTier: "ड्राइवर स्तर",
-        avgFuelSpend: "औसत ईंधन खर्च",
-        nonFuelTransactions: "गैर-ईंधन लेनदेन",
-        fromLastMonth: "पिछले महीने से"
-      },
-      managerView: {
-        title: "फ्लीट प्रबंधक दृश्य",
-        driverDistribution: "ड्राइवर वितरण",
-        spendAnalysis: "खर्च विश्लेषण",
-        teamPerformance: "टीम प्रदर्शन",
-        totalDrivers: "{{region}} में कुल ड्राइवर",
-        avgSpend: "प्रति ड्राइवर औसत मासिक खर्च",
-        avgPoints: "औसत मासिक अंक"
-      }
-    }
-  },
-  ru: {
-    translation: {
-      navigation: {
-        dashboard: "Панель управления",
-        performance: "Производительность",
-        progress: "Прогресс",
-        leaderboard: "Рейтинг",
-        team: "Команда",
-        settings: "Настройки",
-        logout: "Выход"
-      },
-      appName: "RouteRunner",
-      dashboardTitle: "Панель показателей водителя",
-      leaderboard: "Рейтинг водителей и награды",
-      tabs: {
-        leaderboard: "Рейтинг",
-        rewards: "Программа наград",
-        redeem: "Обменять баллы",
-        spend: "Расходы по карте",
-        manager: "Панель менеджера"
-      },
-      metrics: {
-        mileageTracking: "Учет пробега",
-        distance: "Ежедневный и еженедельный пробег",
-        performanceMetrics: "Показатели эффективности",
-        safetyScores: "Оценки безопасности и расход топлива",
-        weekly: "Еженедельно",
-        monthly: "Ежемесячно",
-        miles: "Мили",
-        safetyScore: "Оценка безопасности",
-        fuelEfficiency: "Расход топлива (миль/галлон)",
-        weeklyMileage: "Еженедельный пробег",
-        overallRank: "Общий рейтинг",
-        milesLabel: "миль",
-        placesUp: "позиций вверх"
-      },
-      driverActions: "Действия водителя (еженедельное обновление)",
-      weekOf: "Неделя",
-      points: "баллов",
-      deadline: "Срок",
-      difficulty: {
-        easy: "легко",
-        medium: "средне",
-        hard: "сложно"
-      },
-      availablePoints: "Доступные баллы",
-      monthlyPoints: "Баллы за месяц",
-      redeemedPoints: "Использованные баллы",
-      tierStatus: "Статус уровня водителя",
-      untilNextTier: "баллов до уровня {{tier}}",
-      categories: "Категории",
-      marketplace: "Маркетплейс наград",
-      pointsBalance: "Баланс баллов",
-      redeemButton: "Обменять",
-      filters: {
-        label: "Фильтры:",
-        region: "Регион",
-        team: "Команда",
-        period: "Период",
-        groupBy: "Группировать по:",
-        sortBy: "Сортировать по",
-        allTeams: "Все команды",
-        allRegions: "Все регионы",
-        allTiers: "Все уровни"
-      },
-      rank: "Ранг",
-      driver: "Водитель",
-      team: "Команда",
-      region: "Регион",
-      tier: "Уровень",
-      points: "Баллы",
-      onTime: "Вовремя %",
-      routeAdherence: "Соблюдение маршрута",
-      managerView: {
-        title: "Панель менеджера автопарка",
-        driverDistribution: "Распределение водителей",
-        spendAnalysis: "Расходы на топливо и другие расходы по уровням",
-        teamPerformance: "Эффективность команды",
-        totalDrivers: "Всего водителей в {{region}}",
-        avgSpend: "Средние ежемесячные расходы на водителя в долларах",
-        avgPoints: "Среднее количество заработанных и использованных баллов по командам"
-      },
-      fuelCard: {
-        title: "Расходы по топливной карте",
-        region: "Регион",
-        driverTier: "Уровень водителя",
-        avgFuelSpend: "Средний расход на топливо",
-        nonFuelTransactions: "Нетопливные транзакции",
-        fromLastMonth: "от прошлого месяца"
-      }
-    }
-  },
-  uk: {
-    translation: {
-      navigation: {
-        dashboard: "Панель керування",
-        performance: "Продуктивність",
-        progress: "Прогрес",
-        leaderboard: "Рейтинг",
-        team: "Команда",
-        settings: "Налаштування",
-        logout: "Вихід"
-      },
-      appName: "RouteRunner",
-      dashboardTitle: "Панель показників водія",
-      leaderboard: "Рейтинг водіїв та нагороди",
-      tabs: {
-        leaderboard: "Рейтинг",
-        rewards: "Програма винагород",
-        redeem: "Обміняти бали",
-        spend: "Витрати по картці",
-        manager: "Панель менеджера"
-      },
-      metrics: {
-        mileageTracking: "Облік пробігу",
-        distance: "Щоденний та щотижневий пробіг",
-        performanceMetrics: "Показники ефективності",
-        safetyScores: "Оцінки безпеки та витрата пального",
-        weekly: "Щотижнево",
-        monthly: "Щомісячно",
-        miles: "Милі",
-        safetyScore: "Оцінка безпеки",
-        fuelEfficiency: "Витрата пального (миль/галон)",
-        weeklyMileage: "Щотижневий пробіг",
-        overallRank: "Загальний рейтинг",
-        milesLabel: "миль",
-        placesUp: "позицій вгору"
-      },
-      driverActions: "Дії водія (щотижневе оновлення)",
-      weekOf: "Тиждень",
-      points: "балів",
-      deadline: "Термін",
-      difficulty: {
-        easy: "легко",
-        medium: "середньо",
-        hard: "складно"
-      },
-      availablePoints: "Доступні бали",
-      monthlyPoints: "Бали за місяць",
-      redeemedPoints: "Використані бали",
-      tierStatus: "Статус рівня водія",
-      untilNextTier: "балів до рівня {{tier}}",
-      categories: "Категорії",
-      marketplace: "Маркетплейс винагород",
-      pointsBalance: "Баланс балів",
-      redeemButton: "Обміняти",
-      filters: {
-        label: "Фільтри:",
-        region: "Регіон",
-        team: "Команда",
-        period: "Період",
-        groupBy: "Групувати за:",
-        sortBy: "Сортувати за",
-        allTeams: "Усі команди",
-        allRegions: "Усі регіони",
-        allTiers: "Усі рівні"
-      },
-      rank: "Ранг",
-      driver: "Водій",
-      team: "Команда",
-      region: "Регіон",
-      tier: "Рівень",
-      points: "Бали",
-      onTime: "Вчасно %",
-      routeAdherence: "Дотримання маршруту",
-      managerView: {
-        title: "Панель менеджера автопарку",
-        driverDistribution: "Розподіл водіїв",
-        spendAnalysis: "Витрати на пальне та інші витрати за рівнями",
-        teamPerformance: "Ефективність команди",
-        totalDrivers: "Всього водіїв у {{region}}",
-        avgSpend: "Середні щомісячні витрати на водія в доларах",
-        avgPoints: "Середня кількість зароблених та використаних балів по командах"
-      },
-      fuelCard: {
-        title: "Витрати по паливній картці",
-        region: "Регіон",
-        driverTier: "Рівень водія",
-        avgFuelSpend: "Середні витрати на пальне",
-        nonFuelTransactions: "Непаливні транзакції",
-        fromLastMonth: "від минулого місяця"
-      }
-    }
-  }
-};
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources,
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false
-    }
-  });
-
-export default i18n;
+    resources: {
+      en: {
+        translation: {
+          dashboard: 'Dashboard',
+          performance: 'Performance',
+          leaderboard: 'Leaderboard',
+          settings: 'Settings',
+          profile: 'Profile',
+          logout: 'Logout',
+          darkMode: 'Dark Mode',
+          language: 'Language',
+          notifications: 'Notifications',
+          reportIssue: 'Report Issue',
+          help: 'Help',
+          overview: 'Overview',
+          details: 'Details',
+          stayTuned: 'Stay Tuned',
+          dashboard404: 'This page does not exist',
+          backToDashboard: 'Back to Dashboard',
+          lastUpdated: 'Last Updated',
+          today: 'Today',
+          week: 'Week',
+          month: 'Month',
+          year: 'Year',
+          tabs: {
+            overview: 'Overview',
+            quests: 'Quests & Challenges',
+            leaderboard: 'Leaderboard',
+            eligibleDrivers: 'Eligible Drivers',
+            rewards: 'Rewards',
+            redeem: 'Redeem',
+            spend: 'Spend',
+            manager: 'Manager View',
+            tierCriteria: 'Tier Criteria',
+            additionalMetrics: 'Additional Metrics'
+          },
+          stats: {
+            deliveries: 'Deliveries',
+            completed: 'completed today',
+            increasing: 'increasing',
+            mileage: 'Mileage',
+            miles: 'miles today',
+            fuelSpend: 'Fuel Spend',
+            spent: 'spent today',
+            safetyScore: 'Safety Score',
+            outOf: 'out of 100'
+          },
+          performance: {
+            title: 'Performance Metrics',
+            safetyScore: 'Safety Score',
+            fuelEfficiency: 'Fuel Efficiency',
+            timeAdherence: 'Time Adherence',
+            routeAdherence: 'Route Adherence',
+            summary: 'Weekly Summary',
+            comparison: 'Comparison to Fleet Average'
+          },
+          leaderboard: {
+            driverLeaderboard: 'Driver Leaderboard',
+            groupBy: 'Group by',
+            selectFilter: 'Select filter',
+            mileage: 'Mileage',
+            safety: 'Safety',
+            fuelEfficiency: 'Fuel Efficiency',
+            mpg: 'mpg',
+            milesLabel: 'miles',
+            placesUp: 'places up',
+            movement: 'Movement'
+          },
+          // Existing translations
+          driverActions: 'Driver Actions (Weekly Update)',
+          weekOf: 'Week of',
+          points: 'pts',
+          deadline: 'Deadline',
+          difficulty: {
+            easy: 'easy',
+            medium: 'medium',
+            hard: 'hard'
+          },
+          availablePoints: 'Available Points',
+          pointsThisMonth: 'points accrued this month',
+          monthlyPoints: 'Monthly Points',
+          pointsUsedThisMonth: 'points used this month',
+          redeemedPoints: 'Points Redeemed',
+          totalPointsBalance: 'total points balance',
+          tierStatus: 'Driver Tier Status',
+          untilNextTier: 'points until {{tier}} Tier',
+          progressToNextTier: 'Progress to next tier',
+          categories: 'Categories',
+          marketplace: 'Rewards Marketplace',
+          pointsBalance: 'Your Points Balance',
+          redeemButton: 'Redeem',
+          tier: 'Tier',
+          rewardEligibleDrivers: 'Reward-Eligible Drivers',
+          tierPromotionCriteria: 'Tier Promotion Criteria',
+          weeklyActivity: 'Weekly Activity',
+          cardSwipes: 'Card Swipes',
+          onTimeDelivery: 'On-Time Delivery',
+          routeAdherence: 'Route Adherence',
+          nonFuelPurchases: 'Non-Fuel Purchases',
+          nonFuelPurchaseBreakdown: 'Non-Fuel Purchase Breakdown',
+          purchaseType: 'Purchase Type',
+          amount: 'Amount',
+          driver: 'Driver',
+          team: 'Team',
+          region: 'Region',
+          tier: 'Tier',
+          points: 'Points',
+          onTime: 'On-Time %',
+          totalPoints: 'Total Points',
+          criterion: 'Criterion',
+          bronzeRequirements: 'Bronze Requirements',
+          silverRequirements: 'Silver Requirements',
+          goldRequirements: 'Gold Requirements',
+          rank: 'Rank',
+          filters: {
+            label: 'Filters:',
+            region: 'Region',
+            team: 'Team',
+            sort: 'Sort by',
+            startDate: 'Start Date',
+            endDate: 'End Date',
+            tier: 'Driver Tier',
+            allRegions: 'All Regions',
+            allTiers: 'All Tiers'
+          },
+          fuelCard: {
+            title: 'Fuel Card Spend',
+            region: 'Region',
+            driverTier: 'Driver Tier',
+            avgFuelSpend: 'Avg. Fuel Spend',
+            nonFuelTransactions: 'Non-Fuel Transactions',
+            fromLastMonth: 'from last month'
+          },
+          // New gamification translations
+          xp: {
+            driverLevel: 'Driver Level {{level}}',
+            info: 'Info',
+            points: 'XP',
+            levelInfo: 'Level {{level}} Driver',
+            levelDescription: 'You have {{current}} XP. {{remaining}} XP needed to reach level {{level}}.',
+            toNextLevel: 'XP to next level'
+          },
+          sound: {
+            on: 'Sound On',
+            off: 'Sound Off',
+            enabled: 'Sound effects enabled',
+            disabled: 'Sound effects disabled'
+          },
+          streak: {
+            title: 'Activity Streak',
+            daily: 'Daily',
+            weekly: 'Weekly',
+            highest: 'Highest',
+            days: 'days',
+            weeks: 'weeks',
+            nextMilestone: 'Next Milestone',
+            bonusReward: 'Bonus Reward'
+          },
+          tierChallenge: {
+            title: 'Next Tier Challenge',
+            progress: 'Overall Progress',
+            spendChallenge: 'Spend ${{amount}} this week',
+            otherChallenge: 'Reach {{amount}} {{unit}}',
+            unlockNextTier: 'Complete all challenges to unlock {{tier}} tier'
+          },
+          quests: {
+            title: 'Weekly Quests',
+            completed: 'Completed',
+            expires: 'Expires',
+            claim: 'Claim Reward',
+            expired: 'Expired',
+            expiredTitle: 'Expired Quests',
+            rewardClaimed: 'Reward Claimed!',
+            xpAdded: '+{{xp}} XP added to your profile'
+          },
+          rewards: {
+            chest: 'Rewards Chest',
+            filled: 'filled',
+            pointsToUnlock: '{{points}} more points needed',
+            readyToUnlock: 'Ready to unlock!',
+            potentialRewards: 'Potential rewards inside',
+            unlockChest: 'Unlock Chest',
+            unlocking: 'Unlocking...',
+            notEnoughPoints: 'Not enough points',
+            needMorePoints: 'You need {{points}} more points to unlock',
+            chestUnlocked: 'Chest Unlocked!',
+            chestUnlockedDesc: 'You've earned special rewards!',
+            congratulations: 'Congratulations!',
+            chestRewards: 'You've unlocked special rewards from the chest!'
+          }
+        }
+      },
+      // Spanish translations
+      es: {
+        translation: {
+          dashboard: 'Panel de Control',
+          performance: 'Rendimiento',
+          leaderboard: 'Clasificación',
+          settings: 'Configuración',
+          profile: 'Perfil',
+          logout: 'Cerrar Sesión',
+          darkMode: 'Modo Oscuro',
+          language: 'Idioma',
+          notifications: 'Notificaciones',
+          reportIssue: 'Reportar Problema',
+          help: 'Ayuda',
+          overview: 'Resumen',
+          details: 'Detalles',
+          stayTuned: 'Estén Atentos',
+          dashboard404: 'Esta página no existe',
+          backToDashboard: 'Volver al Panel de Control',
+          lastUpdated: 'Última Actualización',
+          today: 'Hoy',
+          week: 'Semana',
+          month: 'Mes',
+          year: 'Año',
+          tabs: {
+            overview: 'Resumen',
+            quests: 'Misiones y Desafíos',
+            leaderboard: 'Clasificación',
+            eligibleDrivers: 'Conductores Elegibles',
+            rewards: 'Recompensas',
+            redeem: 'Canjear',
+            spend: 'Gastos',
+            manager: 'Vista de Gerente',
+            tierCriteria: 'Criterios de Nivel',
+            additionalMetrics: 'Métricas Adicionales'
+          },
+          stats: {
+            deliveries: 'Entregas',
+            completed: 'completadas hoy',
+            increasing: 'aumentando',
+            mileage: 'Kilometraje',
+            miles: 'millas hoy',
+            fuelSpend: 'Gasto de Combustible',
+            spent: 'gastado hoy',
+            safetyScore: 'Puntuación de Seguridad',
+            outOf: 'de 100'
+          },
+          performance: {
+            title: 'Métricas de Rendimiento',
+            safetyScore: 'Puntuación de Seguridad',
+            fuelEfficiency: 'Eficiencia de Combustible',
+            timeAdherence: 'Adherencia de Tiempo',
+            routeAdherence: 'Adherencia de Ruta',
+            summary: 'Resumen Semanal',
+            comparison: 'Comparación con Promedio de Flota'
+          },
+          leaderboard: {
+            driverLeaderboard: 'Clasificación de Conductores',
+            groupBy: 'Agrupar por',
+            selectFilter: 'Seleccionar filtro',
+            mileage: 'Kilometraje',
+            safety: 'Seguridad',
+            fuelEfficiency: 'Eficiencia de Combustible',
+            mpg: 'mpg',
+            milesLabel: 'millas',
+            placesUp: 'puestos arriba',
+            movement: 'Movimiento'
+          },
+          // Existing translations
+          driverActions: "Acciones del Conductor",
+          weekOf: "Semana de",
+          points: "pts",
+          deadline: "Fecha límite",
+          difficulty: {
+            easy: "fácil",
+            medium: "medio",
+            hard: "difícil"
+          },
+          availablePoints: "Puntos Disponibles",
+          monthlyPoints: "Puntos Mensuales",
+          pointsThisMonth: "puntos acumulados este mes",
+          redeemedPoints: "Puntos Canjeados",
+          pointsUsedThisMonth: "puntos usados este mes",
+          totalPointsBalance: "balance total de puntos",
+          tierStatus: "Estado del Nivel del Conductor",
+          untilNextTier: "puntos hasta el Nivel {{tier}}",
+          progressToNextTier: "Progreso al siguiente nivel",
+          categories: "Categorías",
+          marketplace: "Mercado de Recompensas",
+          pointsBalance: "Tu Balance de Puntos",
+          redeemButton: "Canjear",
+          tier: "Nivel",
+          rewardEligibleDrivers: "Conductores Elegibles para Recompensas",
+          tierPromotionCriteria: "Criterios de Promoción de Nivel",
+          weeklyActivity: "Actividad Semanal",
+          cardSwipes: "Uso de Tarjeta",
+          onTimeDelivery: "Entrega a Tiempo",
+          routeAdherence: "Adherencia a la Ruta",
+          nonFuelPurchases: "Compras No-Combustible",
+          nonFuelPurchaseBreakdown: "Desglose de Compras No-Combustible",
+          purchaseType: "Tipo de Compra",
+          amount: "Monto",
+          driver: "Conductor",
+          team: "Equipo",
+          region: "Región",
+          tier: "Nivel",
+          points: "Puntos",
+          onTime: "A tiempo %",
+          totalPoints: "Puntos Totales",
+          criterion: "Criterio",
+          bronzeRequirements: "Requisitos Bronce",
+          silverRequirements: "Requisitos Plata",
+          goldRequirements: "Requisitos Oro",
+          rank: "Rango",
+          filters: {
+            label: "Filtros:",
+            region: "Región",
+            team: "Equipo",
+            sort: "Ordenar por",
+            startDate: "Fecha de Inicio",
+            endDate: "Fecha de Fin",
+            tier: "Nivel del Conductor",
+            allRegions: "Todas las Regiones",
+            allTiers: "Todos los Niveles"
+          },
+          fuelCard: {
+            title: "Gasto de Tarjeta de Combustible",
+            region: "Región",
+            driverTier: "Nivel del Conductor",
+            avgFuelSpend: "Gasto Prom. Combustible",
+            nonFuelTransactions: "Transacciones No-Combustible",
+            fromLastMonth: "desde el mes pasado"
+          },
+          // New gamification translations
+          xp: {
+            driverLevel: "Nivel de Conductor {{level}}",
+            info: "Info",
+            points: "XP",
+            levelInfo: "Conductor Nivel {{level}}",
+            levelDescription: "Tienes {{current}} XP. Necesitas {{remaining}} XP para alcanzar el nivel {{level}}.",
+            toNextLevel: "XP para el siguiente nivel"
+          },
+          sound: {
+            on: "Sonido Activado",
+            off: "Sonido Desactivado",
+            enabled: "Efectos de sonido activados",
+            disabled: "Efectos de sonido desactivados"
+          },
+          streak: {
+            title: "Racha de Actividad",
+            daily: "Diaria",
+            weekly: "Semanal",
+            highest: "Más Alta",
+            days: "días",
+            weeks: "semanas",
+            nextMilestone: "Próximo Hito",
+            bonusReward: "Recompensa Bonus"
+          },
+          tierChallenge: {
+            title: "Desafío de Siguiente Nivel",
+            progress: "Progreso General",
+            spendChallenge: "Gasta ${{amount}} esta semana",
+            otherChallenge: "Alcanza {{amount}} {{unit}}",
+            unlockNextTier: "Completa todos los desafíos para desbloquear nivel {{tier}}"
+          },
+          quests: {
+            title: "Misiones Semanales",
+            completed: "Completadas",
+            expires: "Expira",
+            claim: "Reclamar Recompensa",
+            expired: "Expirada",
+            expiredTitle: "Misiones Expiradas",
+            rewardClaimed: "¡Recompensa Reclamada!",
+            xpAdded: "+{{xp}} XP añadidos a tu perfil"
+          },
+          rewards: {
+            chest: "Cofre de Recompensas",
+            filled: "lleno",
+            pointsToUnlock: "{{points}} puntos más necesarios",
+            readyToUnlock: "¡Listo para desbloquear!",
+            potentialRewards: "Recompensas potenciales dentro",
+            unlockChest: "Desbloquear Cofre",
+            unlocking: "Desbloqueando...",
+            notEnoughPoints: "Puntos insuficientes",
+            needMorePoints: "Necesitas {{points}} puntos más para desbloquear",
+            chestUnlocked: "¡Cofre Desbloqueado!",
+            chestUnlockedDesc: "¡Has ganado recompensas especiales!",
+            congratulations: "¡Felicidades!",
+            chestRewards: "¡Has desbloqueado recompensas especiales del cofre!"
+          }
+        }
+      },
+      // Hindi translations
+      hi: {
+        translation: {
+          dashboard: 'डैशबोर्ड',
+          performance: 'प्रदर्शन',
+          leaderboard: 'लीडरबोर्ड',
+          settings: 'सेटिंग्स',
+          profile: 'प्रोफाइल',
+          logout: 'लॉग आउट',
+          darkMode: 'डार्क मोड',
+          language: 'भाषा',
+          notifications: 'सूचनाएं',
+          reportIssue: 'समस्या रिपोर्ट करें',
+          help: 'मदद',
+          overview: 'अवलोकन',
+          details: 'विवरण',
+          stayTuned: 'जुड़े रहें',
+          dashboard404: 'यह पेज मौजूद नहीं है',
+          backToDashboard: 'डैशबोर्ड पर वापस जाएं',
+          lastUpdated: 'आखरी अपडेट',
+          today: 'आज',
+          week: 'सप्ताह',
+          month: 'महीना',
+          year: 'वर्ष',
+          tabs: {
+            overview: 'अवलोकन',
+            quests: 'मिशन और चुनौतियां',
+            leaderboard: 'लीडरबोर्ड',
+            eligibleDrivers: 'योग्य ड्राइवर',
+            rewards: 'पुरस्कार',
+            redeem: 'रिडीम करें',
+            spend: 'खर्च',
+            manager: 'प्रबंधक दृश्य',
+            tierCriteria: 'स्तर मापदंड',
+            additionalMetrics: 'अतिरिक्त मेट्रिक्स'
+          },
+          stats: {
+            deliveries: 'डिलीवरी',
+            completed: 'आज पूरी की गई',
+            increasing: 'बढ़ रहा है',
+            mileage: 'माइलेज',
+            miles: 'आज के मील',
+            fuelSpend: 'ईंधन खर्च',
+            spent: 'आज खर्च किया गया',
+            safetyScore: 'सुरक्षा स्कोर',
+            outOf: '100 में से'
+          },
+          performance: {
+            title: 'प्रदर्शन मेट्रिक्स',
+            safetyScore: 'सुरक्षा स्कोर',
+            fuelEfficiency: 'ईंधन दक्षता',
+            timeAdherence: 'समय पालन',
+            routeAdherence: 'मार्ग पालन',
+            summary: 'साप्ताहिक सारांश',
+            comparison: 'फ्लीट औसत से तुलना'
+          },
+          leaderboard: {
+            driverLeaderboard: 'ड्राइवर लीडरबोर्ड',
+            groupBy: 'द्वारा समूहित करें',
+            selectFilter: 'फ़िल्टर चुनें',
+            mileage: 'माइलेज',
+            safety: 'सुरक्षा',
+            fuelEfficiency: 'ईंधन दक्षता',
+            mpg: 'माइल प्रति गैलन',
+            milesLabel: 'मील',
+            placesUp: 'स्थान ऊपर',
+            movement: 'गतिविधि'
+          },
+          // Existing translations
+          driverActions: "ड्राइवर क्रियाएं",
+          weekOf: "सप्ताह",
+          points: "अंक",
+          deadline: "समय सीमा",
+          difficulty: {
+            easy: "आसान",
+            medium: "मध्यम",
+            hard: "कठिन"
+          },
+          availablePoints: "उपलब्ध अंक",
+          monthlyPoints: "मासिक अंक",
+          pointsThisMonth: "इस महीने प्राप्त अंक",
+          redeemedPoints: "रिडीम किए गए अंक",
+          pointsUsedThisMonth: "इस महीने उपयोग किए गए अंक",
+          totalPointsBalance: "कुल अंक शेष",
+          tierStatus: "ड्राइवर स्तर स्थिति",
+          untilNextTier: "{{tier}} स्तर तक अंक",
+          progressToNextTier: "अगले स्तर तक प्रगति",
+          categories: "श्रेणियाँ",
+          marketplace: "पुरस्कार बाज़ार",
+          pointsBalance: "आपका अंक शेष",
+          redeemButton: "रिडीम करें",
+          tier: "स्तर",
+          rewardEligibleDrivers: "पुरस्कार-योग्य ड्राइवर",
+          tierPromotionCriteria: "स्तर प्रमोशन मापदंड",
+          weeklyActivity: "साप्ताहिक गतिविधि",
+          cardSwipes: "कार्ड स्वाइप्स",
+          onTimeDelivery: "समय पर डिलीवरी",
+          routeAdherence: "मार्ग अनुपालन",
+          nonFuelPurchases: "गैर-ईंधन खरीदारी",
+          nonFuelPurchaseBreakdown: "गैर-ईंधन खरीदारी विश्लेषण",
+          purchaseType: "खरीदारी प्रकार",
+          amount: "राशि",
+          driver: "ड्राइवर",
+          team: "टीम",
+          region: "क्षेत्र",
+          tier: "स्तर",
+          points: "अंक",
+          onTime: "समय पर %",
+          totalPoints: "कुल अंक",
+          criterion: "मापदंड",
+          bronzeRequirements: "ब्रॉन्ज़ आवश्यकताएं",
+          silverRequirements: "सिल्वर आवश्यकताएं",
+          goldRequirements: "गोल्ड आवश्यकताएं",
+          rank: "रैंक",
+          filters: {
+            label: "फ़िल्टर:",
+            region: "क्षेत्र",
+            team: "टीम",
+            sort: "क्रमबद्ध करें",
+            startDate: "प्रारंभ तिथि",
+            endDate: "अंतिम तिथि",
+            tier: "ड्राइवर स्तर",
+            allRegions: "सभी क्षेत्र",
+            allTiers: "सभी स्तर"
+          },
+          fuelCard: {
+            title: "ईंधन कार्ड खर्च",
+            region: "क्षेत्र",
+            driverTier: "ड्राइवर स्तर",
+            avgFuelSpend: "औसत ईंधन खर्च",
+            nonFuelTransactions: "गैर-ईंधन लेनदेन",
+            fromLastMonth: "पिछले महीने से"
+          },
+          // New gamification translations
+          xp: {
+            driverLevel: "ड्राइवर लेवल {{level}}",
+            info: "जानकारी",
+            points: "अनुभव अंक",
+            levelInfo: "लेवल {{level}} ड्राइवर",
+            levelDescription: "आपके पास {{current}} अनुभव अंक हैं। लेवल {{level}} तक पहुंचने के लिए {{remaining}} अनुभव अंक और चाहिए।",
+            toNextLevel: "अगले लेवल तक अनुभव अंक"
+          },
+          sound: {
+            on: "ध्वनि चालू",
+            off: "ध्वनि बंद",
+            enabled: "ध्वनि प्रभाव सक्षम",
+            disabled: "ध्वनि प्रभाव अक्षम"
+          },
+          streak: {
+            title: "गतिविधि स्ट्रीक",
+            daily: "दैनिक",
+            weekly: "साप्ताहिक",
+            highest: "सर्वोच्च",
+            days: "दिन",
+            weeks: "सप्ताह",
+            nextMilestone: "अगला मील का पत्थर",
+            bonusReward: "बोनस पुरस्कार"
+          },
+          tierChallenge: {
+            title: "अगला स्तर चुनौती",
+            progress: "समग्र प्रगति",
+            spendChallenge: "इस सप्ताह ${{amount}} खर्च करें",
+            otherChallenge: "{{amount}} {{unit}} तक पहुंचें",
+            unlockNextTier: "{{tier}} स्तर अनलॉक करने के लिए सभी चुनौतियां पूरी करें"
+          },
+          quests: {
+            title: "साप्ताहिक मिशन",
+            completed: "पूर्ण",
+            expires: "समाप्ति",
+            claim: "पुरस्कार प्राप्त करें",
+            expired: "समाप्त",
+            expiredTitle: "समाप्त मिशन",
+            rewardClaimed: "पुरस्कार प्राप्त किया गया!",
+            xpAdded: "+{{xp}} अनुभव अंक आपकी प्रोफ़ाइल में जोड़े गए"
+          },
+          rewards: {
+            chest: "पुरस्कार संदूक",
+            filled: "भरा हुआ",
+            pointsToUnlock: "अनलॉक करने के लिए {{points}} और अंक चाहिए",
+            readyToUnlock: "अनलॉक करने के लिए तैयार!",
+            potentialRewards: "अंदर संभावित पुरस्कार",
+            unlockChest: "संदूक अनलॉक करें",
+            unlocking: "अनलॉक हो रहा है...",
+            notEnoughPoints: "पर्याप्त अंक नहीं",
+            needMorePoints: "अनलॉक करने के लिए आपको {{points}} और अंक चाहिए",
+            chestUnlocked: "संदूक अनलॉक हो गया!",
+            chestUnlockedDesc: "आपने विशेष पुरस्कार अर्जित किए हैं!",
+            congratulations: "बधाई हो!",
+            chestRewards: "आपने संदूक से विशेष पुरस्कार अनलॉक किए हैं!"
+          }
+        }
+      },
+      // Keeping existing Russian translations
+      ru: {
+        translation: {
+          dashboard: 'Панель управления',
+          performance: 'Производительность',
+          leaderboard: 'Таблица лидеров',
+          settings: 'Настройки',
+          profile: 'Профиль',
+          logout: 'Выйти',
+          darkMode: 'Тёмный режим',
+          language: 'Язык',
+          notifications: 'Уведомления',
+          reportIssue: 'Сообщить о проблеме',
+          help: 'Помощь',
+          overview: 'Обзор',
+          details: 'Подробности',
+          stayTuned: 'Ожидайте',
+          dashboard404: 'Эта страница не существует',
+          backToDashboard: 'Вернуться на панель управления',
+          lastUpdated: 'Последнее обновление',
+          today: 'Сегодня',
+          week: 'Неделя',
+          month: 'Месяц',
+          year: 'Год',
+          // Adding new tabs for gamification
+          tabs: {
+            overview: 'Обзор',
+            quests: 'Задания и Испытания',
+            leaderboard: 'Таблица лидеров',
+            eligibleDrivers: 'Подходящие водители',
+            rewards: 'Награды',
+            redeem: 'Обменять',
+            spend: 'Расходы',
+            manager: 'Вид менеджера',
+            tierCriteria: 'Критерии уровней',
+            additionalMetrics: 'Дополнительные показатели'
+          },
+          stats: {
+            deliveries: 'Доставки',
+            completed: 'выполнено сегодня',
+            increasing: 'увеличивается',
+            mileage: 'Пробег',
+            miles: 'миль сегодня',
+            fuelSpend: 'Расход топлива',
+            spent: 'потрачено сегодня',
+            safetyScore: 'Оценка безопасности',
+            outOf: 'из 100'
+          },
+          performance: {
+            title: 'Показатели эффективности',
+            safetyScore: 'Оценка безопасности',
+            fuelEfficiency: 'Эффективность топлива',
+            timeAdherence: 'Соблюдение времени',
+            routeAdherence: 'Соблюдение маршрута',
+            summary: 'Еженедельная сводка',
+            comparison: 'Сравнение со средними значениями по автопарку'
+          },
+          leaderboard: {
+            driverLeaderboard: 'Таблица лидеров водителей',
+            groupBy: 'Группировать по',
+            selectFilter: 'Выберите фильтр',
+            mileage: 'Пробег',
+            safety: 'Безопасность',
+            fuelEfficiency: 'Эффективность топлива',
+            mpg: 'миль на галлон',
+            milesLabel: 'миль',
+            placesUp: 'мест вверх',
+            movement: 'Движение'
+          },
+          // New gamification translations
+          xp: {
+            driverLevel: "Уровень водителя {{level}}",
+            info: "Информация",
+            points: "Опыт",
+            levelInfo: "Водитель уровня {{level}}",
+            levelDescription: "У вас {{current}} опыта. Нужно ещё {{remaining}} опыта, чтобы достичь уровня {{level}}.",
+            toNextLevel: "Опыта до следующего уровня"
+          },
+          sound: {
+            on: "Звук включен",
+            off: "Звук выключен",
+            enabled: "Звуковые эффекты включены",
+            disabled: "Звуковые эффекты выключены"
+          },
+          streak: {
+            title: "Серия активности",
+            daily: "Ежедневная",
+            weekly: "Еженедельная",
+            highest: "Наивысшая",
+            days: "дней",
+            weeks: "недель",
+            nextMilestone: "Следующая веха",
+            bonusReward: "Бонусная награда"
+          },
+          tierChallenge: {
+            title: "Испытание для следующего уровня",
+            progress: "Общий прогресс",
+            spendChallenge: "Потратьте ${{amount}} на этой неделе",
+            otherChallenge: "Достигните {{amount}} {{unit}}",
+            unlockNextTier: "Выполните все задания, чтобы разблокировать уровень {{tier}}"
+          },
+          quests: {
+            title: "Еженедельные задания",
+            completed: "Выполнено",
+            expires: "Истекает",
+            claim: "Получить награду",
+            expired: "Истекло",
+            expiredTitle: "Истекшие задания",
+            rewardClaimed: "Награда получена!",
+            xpAdded: "+{{xp}} опыта добавлено в ваш профиль"
+          },
+          rewards: {
+            chest: "Сундук наград",
+            filled: "заполнен",
+            pointsToUnlock: "Нужно ещё {{points}} очков",
+            readyToUnlock: "Готово к открытию!",
+            potentialRewards: "Возможные награды внутри",
+            unlockChest: "Открыть сундук",
+            unlocking: "Открывается...",
+            notEnoughPoints: "Недостаточно очков",
+            needMorePoints: "Вам нужно ещё {{points}} очков для открытия",
+            chestUnlocked: "Сундук открыт!",
+            chestUnlockedDesc: "Вы получили особые награды!",
+            congratulations: "Поздравляем!",
+            chestRewards: "Вы разблокировали особые награды из сундука!"
+          },
+          // Other translations from English
+          driverActions: "Действия водителя (Еженедельное обновление)",
+          weekOf: "Неделя",
+          points: "очк.",
+          deadline: "Срок",
+          difficulty: {
+            easy: "легко",
+            medium: "средне",
+            hard: "сложно"
+          },
+          availablePoints: "Доступные очки",
+          pointsThisMonth: "очков накоплено в этом месяце",
+          monthlyPoints: "Ежемесячные очки",
+          pointsUsedThisMonth: "очков использовано в этом месяце",
+          redeemedPoints: "Обмененные очки",
+          totalPointsBalance: "общий баланс очков",
+          tierStatus: "Статус уровня водителя",
+          untilNextTier: "очков до уровня {{tier}}",
+          progressToNextTier: "Прогресс к следующему уровню",
+          categories: "Категории",
+          marketplace: "Магазин наград",
+          pointsBalance: "Ваш баланс очков",
+          redeemButton: "Обменять",
+          tier: "Уровень",
+          rewardEligibleDrivers: "Водители, подходящие для наград",
+          tierPromotionCriteria: "Критерии повышения уровня",
+          weeklyActivity: "Еженедельная активность",
+          cardSwipes: "Использований карты",
+          onTimeDelivery: "Доставка вовремя",
+          routeAdherence: "Соблюдение маршрута",
+          nonFuelPurchases: "Покупки не топлива",
+          nonFuelPurchaseBreakdown: "Разбивка покупок не топлива",
+          purchaseType: "Тип покупки",
+          amount: "Сумма",
+          driver: "Водитель",
+          team: "Команда",
+          region: "Регион",
+          points: "Очки",
+          onTime: "Вовремя %",
+          totalPoints: "Всего очков",
+          criterion: "Критерий",
+          bronzeRequirements: "Требования для Бронзы",
+          silverRequirements: "Требования для Серебра",
+          goldRequirements: "Требования для Золота",
+          rank: "Ранг",
+          filters: {
+            label: "Фильтры:",
+            region: "Регион",
+            team: "Команда",
+            sort: "Сортировать по",
+            startDate: "Начальная дата",
+            endDate: "Конечная дата",
+            tier: "Уровень водителя",
+            allRegions: "Все регионы",
+            allTiers: "Все уровни"
+          },
+          fuelCard: {
+            title: "Расходы по топливной карте",
+            region: "Регион",
+            driverTier: "Уровень водителя",
+            avgFuelSpend: "Сред. расход топлива",
+            nonFuelTransactions: "Транзакции не на топливо",
+            fromLastMonth: "от прошлого месяца"
+          }
+        }
+      },
+      // Keeping existing Ukrainian translations
+      uk: {
+        translation: {
+          dashboard: 'Панель керування',
+          performance: 'Продуктивність',
+          leaderboard: 'Таблиця лідерів',
+          settings: 'Налаштування',
+          profile: 'Профіль',
+          logout: 'Вийти',
+          darkMode: 'Темний режим',
+          language: 'Мова',
+          notifications: 'Сповіщення',
+          reportIssue: 'Повідомити про проблему',
+          help: 'Допомога',
+          overview: 'Огляд',
+          details: 'Деталі',
+          stayTuned: 'Очікуйте',
+          dashboard404: 'Ця сторінка не існує',
+          backToDashboard: 'Повернутися на панель керування',
+          lastUpdated: 'Останнє оновлення',
+          today: 'Сьогодні',
+          week: 'Тиждень',
+          month: 'Місяць',
+          year: 'Рік',
+          // Adding new tabs for gamification
+          tabs: {
+            overview: 'Огляд',
+            quests: 'Завдання та Випробування',
+            leaderboard: 'Таблиця лідерів',
+            eligibleDrivers: 'Підходящі водії',
+            rewards: 'Нагороди',
+            redeem: 'Обміняти',
+            spend: 'Витрати',
+            manager: 'Вигляд менеджера',
+            tierCriteria: 'Критерії рівнів',
+            additionalMetrics: 'Додаткові показники'
+          },
+          stats: {
+            deliveries: 'Доставки',
+            completed: 'виконано сьогодні',
+            increasing: 'зростає',
+            mileage: 'Пробіг',
+            miles: 'миль сьогодні',
+            fuelSpend: 'Витрати на пальне',
+            spent: 'витрачено сьогодні',
+            safetyScore: 'Оцінка безпеки',
+            outOf: 'зі 100'
+          },
+          performance: {
+            title: 'Показники ефективності',
+            safetyScore: 'Оцінка безпеки',
+            fuelEfficiency: 'Ефективність палива',
+            timeAdherence: 'Дотримання часу',
+            routeAdherence: 'Дотримання маршруту',
+            summary: 'Щотижневий підсумок',
+            comparison: 'Порівняння з середніми значеннями по автопарку'
+          },
+          leaderboard: {
+            driverLeaderboard: 'Таблиця лідерів водіїв',
+            groupBy: 'Групувати за',
+            selectFilter: 'Виберіть фільтр',
+            mileage: 'Пробіг',
+            safety: 'Безпека',
+            fuelEfficiency: 'Ефективність палива',
+            mpg: 'миль на галон',
+            milesLabel: 'миль',
+            placesUp: 'місць вгору',
+            movement: 'Рух'
+          },
+          // New gamification translations in Ukrainian
+          xp: {
+            driverLevel: "Рівень водія {{level}}",
+            info: "Інформація",
+            points: "Досвід",
+            levelInfo: "Водій рівня {{level}}",
+            levelDescription: "У вас {{current}} досвіду. Потрібно ще {{remaining}} досвіду, щоб досягти рівня {{level}}.",
+            toNextLevel: "Досвіду до наступного рівня"
+          },
+          sound: {
+            on: "Звук увімкнено",
+            off: "Звук вимкнено",

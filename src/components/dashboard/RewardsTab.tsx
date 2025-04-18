@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -7,6 +8,14 @@ import { Award, Trophy, Medal, CircleDollarSign } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
+
+// Import our new gamification components
+import DriverXPProgress from './DriverXPProgress';
+import StreakTracker from './StreakTracker';
+import TierChallenges from './TierChallenges';
+import WeeklyQuests from './WeeklyQuests';
+import RewardsChest from './RewardsChest';
 
 // Mock data for rewards
 const mockRewardsData = {
@@ -110,6 +119,112 @@ const additionalMetrics = {
   ]
 };
 
+// New mock data for gamification features
+const mockGameData = {
+  // XP System Data
+  xp: {
+    currentXP: 2450,
+    levelXP: 3000,
+    level: 8,
+  },
+  
+  // Streak Data
+  streak: {
+    currentStreak: 12,
+    highestStreak: 18,
+    streakType: 'daily' as const,
+    nextReward: 15,
+  },
+  
+  // Tier Challenges
+  challenges: [
+    {
+      id: 1,
+      type: 'spend',
+      target: 2000,
+      current: 1450,
+      unit: '$',
+      deadline: '3 days left',
+      reward: '+500 XP',
+    },
+    {
+      id: 2,
+      type: 'time',
+      target: 10,
+      current: 8,
+      unit: 'deliveries',
+      deadline: '5 days left',
+      reward: '+200 XP',
+    },
+    {
+      id: 3,
+      type: 'safety',
+      target: 95,
+      current: 92,
+      unit: 'score',
+      deadline: '7 days left',
+      reward: '+300 XP',
+    },
+  ],
+  
+  // Weekly Quests
+  quests: [
+    {
+      id: 1,
+      title: 'Fuel up 3 times this week',
+      progress: 2,
+      target: 3,
+      reward: '+100 XP',
+      deadline: '3 days',
+      completed: false,
+      expired: false,
+    },
+    {
+      id: 2,
+      title: 'Spend at 2 different stations',
+      progress: 2,
+      target: 2,
+      reward: '+150 XP',
+      deadline: '5 days',
+      completed: true,
+      expired: false,
+    },
+    {
+      id: 3,
+      title: 'Make 5 on-time deliveries',
+      progress: 3,
+      target: 5,
+      reward: '+200 XP',
+      deadline: '2 days',
+      completed: false,
+      expired: false,
+    },
+    {
+      id: 4,
+      title: 'Complete vehicle inspection',
+      progress: 0,
+      target: 1,
+      reward: '+50 XP',
+      deadline: 'Yesterday',
+      completed: false,
+      expired: true,
+    },
+  ],
+  
+  // Rewards Chest
+  chest: {
+    progress: 70,
+    pointsRequired: 2500,
+    currentPoints: 2430,
+    rewards: [
+      '1,000 Bonus Points',
+      'Limited Edition Team Badge',
+      'Exclusive Driver Avatar',
+      'Fuel Efficiency Boost'
+    ]
+  }
+};
+
 const getTierColor = (tier: string) => {
   switch(tier) {
     case 'Bronze': return 'bg-amber-700';
@@ -120,56 +235,164 @@ const getTierColor = (tier: string) => {
 };
 
 const RewardsTab: React.FC = () => {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [gameData, setGameData] = useState(mockGameData);
+  
+  const handleToggleSound = () => {
+    setSoundEnabled(!soundEnabled);
+    toast({
+      title: !soundEnabled ? t('sound.enabled') : t('sound.disabled'),
+      duration: 2000,
+    });
+  };
+  
+  const handleClaimReward = (questId: number) => {
+    // Update quest status in real app this would call an API
+    setGameData(prev => ({
+      ...prev,
+      quests: prev.quests.map(quest => 
+        quest.id === questId 
+          ? { ...quest, completed: false, expired: true } 
+          : quest
+      ),
+      xp: {
+        ...prev.xp,
+        currentXP: prev.xp.currentXP + 150 // Add XP for claiming quest
+      }
+    }));
+    
+    toast({
+      title: t('quests.rewardClaimed'),
+      description: t('quests.xpAdded', { xp: 150 }),
+    });
+    
+    // Play sound if enabled
+    if (soundEnabled) {
+      const audio = new Audio('/sounds/reward.mp3');
+      audio.volume = 0.5;
+      audio.play().catch(e => console.log('Sound play error:', e));
+    }
+  };
+  
+  const handleUnlockChest = () => {
+    // Update reward chest status
+    setGameData(prev => ({
+      ...prev,
+      chest: {
+        ...prev.chest,
+        progress: 0,
+        currentPoints: prev.chest.currentPoints - prev.chest.pointsRequired,
+      },
+      xp: {
+        ...prev.xp,
+        currentXP: prev.xp.currentXP + 500 // Add XP for unlocking chest
+      }
+    }));
+    
+    toast({
+      title: t('rewards.congratulations'),
+      description: t('rewards.chestRewards'),
+      duration: 5000,
+    });
+    
+    // Play sound if enabled
+    if (soundEnabled) {
+      const audio = new Audio('/sounds/chest-unlock.mp3');
+      audio.volume = 0.5;
+      audio.play().catch(e => console.log('Sound play error:', e));
+    }
+  };
+  
   return (
     <Tabs defaultValue="overview" className="space-y-6">
       <TabsList>
-        <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="leaderboard">Eligible Drivers</TabsTrigger>
-        <TabsTrigger value="criteria">Tier Criteria</TabsTrigger>
-        <TabsTrigger value="metrics">Additional Metrics</TabsTrigger>
+        <TabsTrigger value="overview">{t('tabs.overview')}</TabsTrigger>
+        <TabsTrigger value="quests">{t('tabs.quests')}</TabsTrigger>
+        <TabsTrigger value="leaderboard">{t('tabs.eligibleDrivers')}</TabsTrigger>
+        <TabsTrigger value="criteria">{t('tabs.tierCriteria')}</TabsTrigger>
+        <TabsTrigger value="metrics">{t('tabs.additionalMetrics')}</TabsTrigger>
       </TabsList>
       
       <TabsContent value="overview">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Monthly Points</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('monthlyPoints')}</CardTitle>
               <CircleDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{mockRewardsData.monthlyPoints}</div>
-              <p className="text-xs text-muted-foreground">points accrued this month</p>
+              <p className="text-xs text-muted-foreground">{t('pointsThisMonth')}</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Points Redeemed</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('pointsRedeemed')}</CardTitle>
               <CircleDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{mockRewardsData.redeemedPoints}</div>
-              <p className="text-xs text-muted-foreground">points used this month</p>
+              <p className="text-xs text-muted-foreground">{t('pointsUsedThisMonth')}</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Available Points</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('availablePoints')}</CardTitle>
               <CircleDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{mockRewardsData.availablePoints}</div>
-              <p className="text-xs text-muted-foreground">total points balance</p>
+              <p className="text-xs text-muted-foreground">{t('totalPointsBalance')}</p>
             </CardContent>
           </Card>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          {/* XP Progress Component */}
+          <DriverXPProgress 
+            currentXP={gameData.xp.currentXP} 
+            levelXP={gameData.xp.levelXP} 
+            level={gameData.xp.level}
+            sound={soundEnabled}
+            onToggleSound={handleToggleSound}
+          />
+          
+          {/* Streak Tracker Component */}
+          <StreakTracker 
+            currentStreak={gameData.streak.currentStreak}
+            highestStreak={gameData.streak.highestStreak}
+            streakType={gameData.streak.streakType}
+            nextReward={gameData.streak.nextReward}
+          />
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          {/* Tier Challenges Component */}
+          <TierChallenges 
+            currentTier={mockRewardsData.currentTier}
+            nextTier="Gold"
+            challenges={gameData.challenges}
+          />
+          
+          {/* Rewards Chest Component */}
+          <RewardsChest 
+            progress={gameData.chest.progress}
+            pointsRequired={gameData.chest.pointsRequired}
+            currentPoints={gameData.chest.currentPoints}
+            rewards={gameData.chest.rewards}
+            onUnlock={handleUnlockChest}
+          />
         </div>
         
         <Card className="mt-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Trophy className="h-5 w-5 text-dashboard-purple" />
-              Driver Tier Status
+              {t('tierStatus')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -178,16 +401,16 @@ const RewardsTab: React.FC = () => {
                 <div className={`flex items-center justify-center h-24 w-24 rounded-full ${getTierColor(mockRewardsData.currentTier)} text-white`}>
                   <Award className="h-12 w-12" />
                 </div>
-                <h3 className="mt-4 text-xl font-bold">{mockRewardsData.currentTier} Tier</h3>
+                <h3 className="mt-4 text-xl font-bold">{mockRewardsData.currentTier} {t('tier')}</h3>
                 <p className="text-sm text-muted-foreground">
-                  {mockRewardsData.pointsToNextTier} points until Gold Tier
+                  {mockRewardsData.pointsToNextTier} {t('untilNextTier', { tier: 'Gold' })}
                 </p>
               </div>
             </div>
             
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span>Progress to next tier</span>
+                <span>{t('progressToNextTier')}</span>
                 <span>{mockRewardsData.nextTierProgress}%</span>
               </div>
               <Progress value={mockRewardsData.nextTierProgress} className="h-2" />
@@ -201,7 +424,7 @@ const RewardsTab: React.FC = () => {
                   </div>
                 </div>
                 <p className="mt-2 font-medium">Bronze</p>
-                <p className="text-xs text-muted-foreground">1000+ points</p>
+                <p className="text-xs text-muted-foreground">1000+ {t('points')}</p>
               </div>
               <div className="p-4 rounded-lg border">
                 <div className="flex justify-center">
@@ -210,7 +433,7 @@ const RewardsTab: React.FC = () => {
                   </div>
                 </div>
                 <p className="mt-2 font-medium">Silver</p>
-                <p className="text-xs text-muted-foreground">2000+ points</p>
+                <p className="text-xs text-muted-foreground">2000+ {t('points')}</p>
               </div>
               <div className="p-4 rounded-lg border">
                 <div className="flex justify-center">
@@ -219,11 +442,37 @@ const RewardsTab: React.FC = () => {
                   </div>
                 </div>
                 <p className="mt-2 font-medium">Gold</p>
-                <p className="text-xs text-muted-foreground">3000+ points</p>
+                <p className="text-xs text-muted-foreground">3000+ {t('points')}</p>
               </div>
             </div>
           </CardContent>
         </Card>
+      </TabsContent>
+      
+      <TabsContent value="quests">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <WeeklyQuests 
+            quests={gameData.quests}
+            onClaimReward={handleClaimReward}
+          />
+          
+          <div className="space-y-6">
+            <StreakTracker 
+              currentStreak={gameData.streak.currentStreak}
+              highestStreak={gameData.streak.highestStreak}
+              streakType={gameData.streak.streakType}
+              nextReward={gameData.streak.nextReward}
+            />
+            
+            <RewardsChest 
+              progress={gameData.chest.progress}
+              pointsRequired={gameData.chest.pointsRequired}
+              currentPoints={gameData.chest.currentPoints}
+              rewards={gameData.chest.rewards}
+              onUnlock={handleUnlockChest}
+            />
+          </div>
+        </div>
       </TabsContent>
       
       <TabsContent value="leaderboard">
@@ -231,18 +480,18 @@ const RewardsTab: React.FC = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Trophy className="h-5 w-5 text-dashboard-purple" />
-              Reward-Eligible Drivers
+              {t('rewardEligibleDrivers')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Driver</TableHead>
-                  <TableHead>Tier</TableHead>
-                  <TableHead>Total Points</TableHead>
-                  <TableHead>On-Time %</TableHead>
-                  <TableHead>Route Adherence</TableHead>
+                  <TableHead>{t('driver')}</TableHead>
+                  <TableHead>{t('tier')}</TableHead>
+                  <TableHead>{t('totalPoints')}</TableHead>
+                  <TableHead>{t('onTime')}%</TableHead>
+                  <TableHead>{t('routeAdherence')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -278,17 +527,17 @@ const RewardsTab: React.FC = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Award className="h-5 w-5 text-dashboard-purple" />
-              Tier Promotion Criteria
+              {t('tierPromotionCriteria')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Criterion</TableHead>
-                  <TableHead>Bronze Requirements</TableHead>
-                  <TableHead>Silver Requirements</TableHead>
-                  <TableHead>Gold Requirements</TableHead>
+                  <TableHead>{t('criterion')}</TableHead>
+                  <TableHead>{t('bronzeRequirements')}</TableHead>
+                  <TableHead>{t('silverRequirements')}</TableHead>
+                  <TableHead>{t('goldRequirements')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -310,24 +559,24 @@ const RewardsTab: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Weekly Activity</CardTitle>
+              <CardTitle>{t('weeklyActivity')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="text-sm font-medium text-gray-500 mb-1">Card Swipes</h4>
-                  <p className="text-2xl font-bold text-dashboard-dark">{additionalMetrics.cardSwipesPerWeek} / week</p>
+                  <h4 className="text-sm font-medium text-gray-500 mb-1">{t('cardSwipes')}</h4>
+                  <p className="text-2xl font-bold text-dashboard-dark">{additionalMetrics.cardSwipesPerWeek} / {t('week')}</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="text-sm font-medium text-gray-500 mb-1">On-Time Delivery</h4>
+                  <h4 className="text-sm font-medium text-gray-500 mb-1">{t('onTimeDelivery')}</h4>
                   <p className="text-2xl font-bold text-dashboard-dark">{additionalMetrics.onTimeDeliveryPercentage}%</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="text-sm font-medium text-gray-500 mb-1">Route Adherence</h4>
+                  <h4 className="text-sm font-medium text-gray-500 mb-1">{t('routeAdherence')}</h4>
                   <p className="text-2xl font-bold text-dashboard-dark">{additionalMetrics.routeAdherenceScore}/100</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="text-sm font-medium text-gray-500 mb-1">Non-Fuel Purchases</h4>
+                  <h4 className="text-sm font-medium text-gray-500 mb-1">{t('nonFuelPurchases')}</h4>
                   <p className="text-2xl font-bold text-dashboard-dark">${additionalMetrics.nonFuelPurchases.reduce((sum, item) => sum + item.amount, 0)}</p>
                 </div>
               </div>
@@ -336,14 +585,14 @@ const RewardsTab: React.FC = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>Non-Fuel Purchase Breakdown</CardTitle>
+              <CardTitle>{t('nonFuelPurchaseBreakdown')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Purchase Type</TableHead>
-                    <TableHead>Amount</TableHead>
+                    <TableHead>{t('purchaseType')}</TableHead>
+                    <TableHead>{t('amount')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
