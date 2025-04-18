@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowUpDown, Trophy, Users, Globe, Flag, TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { ArrowUpDown, Trophy, Users, Globe, Flag, TrendingUp, TrendingDown, Minus, Flame } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
