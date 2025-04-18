@@ -83,7 +83,17 @@ const resources = {
       tier: "Tier",
       points: "Points",
       onTime: "On-Time %",
-      routeAdherence: "Route Adherence"
+      routeAdherence: "Route Adherence",
+      // Manager view
+      managerView: {
+        title: "Fleet Manager View",
+        driverDistribution: "Driver Distribution",
+        spendAnalysis: "Fuel vs Non-Fuel Spend by Tier",
+        teamPerformance: "Team Performance",
+        totalDrivers: "Total drivers in {{region}}",
+        avgSpend: "Average monthly spend per driver shown in dollars",
+        avgPoints: "Average monthly points earned and redeemed per driver by team"
+      }
     }
   },
   ru: {
@@ -158,7 +168,16 @@ const resources = {
       tier: "Уровень",
       points: "Баллы",
       onTime: "Вовремя %",
-      routeAdherence: "Соблюдение маршрута"
+      routeAdherence: "Соблюдение маршрута",
+      managerView: {
+        title: "Панель менеджера автопарка",
+        driverDistribution: "Распределение водителей",
+        spendAnalysis: "Расходы на топливо и другие расходы по уровням",
+        teamPerformance: "Эффективность команды",
+        totalDrivers: "Всего водителей в {{region}}",
+        avgSpend: "Средние ежемесячные расходы на водителя в долларах",
+        avgPoints: "Среднее количество заработанных и использованных баллов по командам"
+      }
     }
   },
   uk: {
@@ -233,7 +252,16 @@ const resources = {
       tier: "Рівень",
       points: "Бали",
       onTime: "Вчасно %",
-      routeAdherence: "Дотримання маршруту"
+      routeAdherence: "Дотримання маршруту",
+      managerView: {
+        title: "Панель менеджера автопарку",
+        driverDistribution: "Розподіл водіїв",
+        spendAnalysis: "Витрати на пальне та інші витрати за рівнями",
+        teamPerformance: "Ефективність команди",
+        totalDrivers: "Всього водіїв у {{region}}",
+        avgSpend: "Середні щомісячні витрати на водія в доларах",
+        avgPoints: "Середня кількість зароблених та використаних балів по командах"
+      }
     }
   }
 };
