@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
@@ -22,18 +22,20 @@ const monthlyData = [
 ];
 
 const PerformanceCharts: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       <Card>
         <CardHeader>
-          <CardTitle>Mileage Tracking</CardTitle>
-          <CardDescription>Daily and weekly distance driven</CardDescription>
+          <CardTitle>{t('metrics.mileageTracking')}</CardTitle>
+          <CardDescription>{t('metrics.distance')}</CardDescription>
         </CardHeader>
         <CardContent className="pt-2">
           <Tabs defaultValue="weekly" className="w-full">
             <TabsList className="mb-4">
-              <TabsTrigger value="weekly">Weekly</TabsTrigger>
-              <TabsTrigger value="monthly">Monthly</TabsTrigger>
+              <TabsTrigger value="weekly">{t('metrics.weekly')}</TabsTrigger>
+              <TabsTrigger value="monthly">{t('metrics.monthly')}</TabsTrigger>
             </TabsList>
             <TabsContent value="weekly" className="space-y-4">
               <div className="h-[300px]">
@@ -44,7 +46,7 @@ const PerformanceCharts: React.FC = () => {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="miles" name="Miles" fill="#9b87f5" />
+                    <Bar dataKey="miles" name={t('metrics.miles')} fill="#9b87f5" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -58,7 +60,7 @@ const PerformanceCharts: React.FC = () => {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="miles" name="Miles" fill="#9b87f5" />
+                    <Bar dataKey="miles" name={t('metrics.miles')} fill="#9b87f5" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -69,14 +71,14 @@ const PerformanceCharts: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Performance Metrics</CardTitle>
-          <CardDescription>Safety scores and fuel efficiency</CardDescription>
+          <CardTitle>{t('metrics.performanceMetrics')}</CardTitle>
+          <CardDescription>{t('metrics.safetyScores')}</CardDescription>
         </CardHeader>
         <CardContent className="pt-2">
           <Tabs defaultValue="weekly" className="w-full">
             <TabsList className="mb-4">
-              <TabsTrigger value="weekly">Weekly</TabsTrigger>
-              <TabsTrigger value="monthly">Monthly</TabsTrigger>
+              <TabsTrigger value="weekly">{t('metrics.weekly')}</TabsTrigger>
+              <TabsTrigger value="monthly">{t('metrics.monthly')}</TabsTrigger>
             </TabsList>
             <TabsContent value="weekly" className="space-y-4">
               <div className="h-[300px]">
@@ -88,8 +90,21 @@ const PerformanceCharts: React.FC = () => {
                     <YAxis yAxisId="right" orientation="right" stroke="#F97316" />
                     <Tooltip />
                     <Legend />
-                    <Line yAxisId="left" type="monotone" dataKey="safety" name="Safety Score" stroke="#0EA5E9" activeDot={{ r: 8 }} />
-                    <Line yAxisId="right" type="monotone" dataKey="fuel" name="Fuel Efficiency (mpg)" stroke="#F97316" />
+                    <Line 
+                      yAxisId="left" 
+                      type="monotone" 
+                      dataKey="safety" 
+                      name={t('metrics.safetyScore')} 
+                      stroke="#0EA5E9" 
+                      activeDot={{ r: 8 }} 
+                    />
+                    <Line 
+                      yAxisId="right" 
+                      type="monotone" 
+                      dataKey="fuel" 
+                      name={t('metrics.fuelEfficiency')} 
+                      stroke="#F97316" 
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -104,8 +119,8 @@ const PerformanceCharts: React.FC = () => {
                     <YAxis yAxisId="right" orientation="right" stroke="#F97316" />
                     <Tooltip />
                     <Legend />
-                    <Line yAxisId="left" type="monotone" dataKey="safety" name="Safety Score" stroke="#0EA5E9" activeDot={{ r: 8 }} />
-                    <Line yAxisId="right" type="monotone" dataKey="fuel" name="Fuel Efficiency (mpg)" stroke="#F97316" />
+                    <Line yAxisId="left" type="monotone" dataKey="safety" name={t('metrics.safetyScore')} stroke="#0EA5E9" activeDot={{ r: 8 }} />
+                    <Line yAxisId="right" type="monotone" dataKey="fuel" name={t('metrics.fuelEfficiency')} stroke="#F97316" />
                   </LineChart>
                 </ResponsiveContainer>
               </div>

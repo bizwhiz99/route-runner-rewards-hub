@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   BarChart3,
   Home,
@@ -20,13 +21,15 @@ type SidebarProps = {
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
+  const { t } = useTranslation();
+
   const navItems = [
-    { icon: Home, label: 'Dashboard', path: '/' },
-    { icon: BarChart3, label: 'Performance', path: '/performance' },
-    { icon: TrendingUp, label: 'Progress', path: '/progress' },
-    { icon: Award, label: 'Leaderboard', path: '/leaderboard' },
-    { icon: Users, label: 'Team', path: '/team' },
-    { icon: Settings, label: 'Settings', path: '/settings' },
+    { icon: Home, label: t('navigation.dashboard'), path: '/' },
+    { icon: BarChart3, label: t('navigation.performance'), path: '/performance' },
+    { icon: TrendingUp, label: t('navigation.progress'), path: '/progress' },
+    { icon: Award, label: t('navigation.leaderboard'), path: '/leaderboard' },
+    { icon: Users, label: t('navigation.team'), path: '/team' },
+    { icon: Settings, label: t('navigation.settings'), path: '/settings' },
   ];
 
   return (
@@ -48,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
       >
         <div className="h-full flex flex-col">
           <div className="flex items-center justify-center h-16 border-b border-dashboard-gray/20">
-            <h2 className="text-xl font-bold text-dashboard-purple">RouteRunner</h2>
+            <h2 className="text-xl font-bold text-dashboard-purple">{t('appName')}</h2>
           </div>
 
           <nav className="flex-1 p-4">
@@ -70,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSidebarOpen, toggleSidebar }) => {
           <div className="p-4 border-t border-dashboard-gray/20">
             <button className="flex items-center w-full px-4 py-3 text-sm rounded-lg hover:bg-white/10 transition-colors">
               <LogOut className="h-5 w-5 mr-3 text-dashboard-gray" />
-              <span>Logout</span>
+              <span>{t('navigation.logout')}</span>
             </button>
           </div>
         </div>
