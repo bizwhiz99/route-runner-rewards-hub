@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
 import LeaderboardTable from '@/components/dashboard/LeaderboardTable';
@@ -12,20 +13,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Shield } from 'lucide-react';
 
 const LeaderboardPage = () => {
+  const { t } = useTranslation();
+
   return (
     <DashboardLayout>
       <div className="space-y-8 animate-fade-in">
-        <DashboardHeader title="Driver Leaderboard & Rewards" />
+        <DashboardHeader title={t('leaderboard')} />
         
         <Tabs defaultValue="leaderboard" className="w-full">
           <TabsList className="mb-6">
-            <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
-            <TabsTrigger value="rewards">Rewards Program</TabsTrigger>
-            <TabsTrigger value="redeem">Redeem Points</TabsTrigger>
-            <TabsTrigger value="spend">Card Spend</TabsTrigger>
+            <TabsTrigger value="leaderboard">{t('tabs.leaderboard')}</TabsTrigger>
+            <TabsTrigger value="rewards">{t('tabs.rewards')}</TabsTrigger>
+            <TabsTrigger value="redeem">{t('tabs.redeem')}</TabsTrigger>
+            <TabsTrigger value="spend">{t('tabs.spend')}</TabsTrigger>
             <TabsTrigger value="manager" className="flex items-center gap-1">
               <Shield className="h-4 w-4" />
-              <span>Manager View</span>
+              <span>{t('tabs.manager')}</span>
             </TabsTrigger>
           </TabsList>
           

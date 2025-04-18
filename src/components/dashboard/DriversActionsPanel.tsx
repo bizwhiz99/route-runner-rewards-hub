@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bell, Calendar, CheckCircle2, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -50,16 +51,18 @@ const getDifficultyColor = (difficulty: string) => {
 };
 
 const DriversActionsPanel: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Card>
       <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
           <Bell className="h-5 w-5 text-dashboard-purple" />
-          <CardTitle>Driver Actions (Weekly Update)</CardTitle>
+          <CardTitle>{t('driverActions')}</CardTitle>
         </div>
         <div className="flex items-center gap-2 mt-2 sm:mt-0">
           <Calendar className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm text-muted-foreground">Week of April 12, 2025</span>
+          <span className="text-sm text-muted-foreground">{t('weekOf')} April 12, 2025</span>
         </div>
       </CardHeader>
       <CardContent>
@@ -73,15 +76,15 @@ const DriversActionsPanel: React.FC = () => {
                 <div>
                   <h3 className="font-medium">{action.action}</h3>
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    Deadline: {action.deadline}
+                    {t('deadline')}: {action.deadline}
                     <Badge className={`ml-2 ${getDifficultyColor(action.difficulty)}`}>
-                      {action.difficulty}
+                      {t(`difficulty.${action.difficulty}`)}
                     </Badge>
                   </p>
                 </div>
               </div>
               <div className="bg-dashboard-purple bg-opacity-20 px-3 py-1 rounded-full text-dashboard-purple font-semibold">
-                +{action.points} pts
+                +{action.points} {t('points')}
               </div>
             </div>
           ))}

@@ -11,6 +11,8 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import LanguageSelector from './LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 type DashboardHeaderProps = {
   title: string;
@@ -22,6 +24,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title }) => {
       <h1 className="text-2xl md:text-3xl font-bold text-dashboard-dark">{title}</h1>
       
       <div className="flex items-center gap-4">
+        <LanguageSelector />
         <Button variant="outline" size="icon">
           <Bell className="h-4 w-4" />
         </Button>
