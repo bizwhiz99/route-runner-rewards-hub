@@ -37,7 +37,11 @@ const resources = {
         monthly: "Monthly",
         miles: "Miles",
         safetyScore: "Safety Score",
-        fuelEfficiency: "Fuel Efficiency (mpg)"
+        fuelEfficiency: "Fuel Efficiency (mpg)",
+        weeklyMileage: "Weekly Mileage",
+        overallRank: "Overall Rank",
+        milesLabel: "miles",
+        placesUp: "places up"
       },
       // Driver actions
       driverActions: "Driver Actions (Weekly Update)",
@@ -67,17 +71,9 @@ const resources = {
         period: "Period",
         groupBy: "Group by:",
         sortBy: "Sort by",
-        allTeams: "All Teams"
-      },
-      // Manager view
-      managerView: {
-        title: "Fleet Manager View",
-        driverDistribution: "Driver Distribution",
-        spendAnalysis: "Fuel vs Non-Fuel Spend by Tier",
-        teamPerformance: "Team Performance",
-        totalDrivers: "Total drivers in {{region}}",
-        avgSpend: "Average monthly spend per driver shown in dollars",
-        avgPoints: "Average monthly points earned and redeemed per driver by team"
+        allTeams: "All Teams",
+        allRegions: "All Regions",
+        allTiers: "All Tiers"
       },
       // Common
       rank: "Rank",
@@ -120,7 +116,11 @@ const resources = {
         monthly: "Ежемесячно",
         miles: "Мили",
         safetyScore: "Оценка безопасности",
-        fuelEfficiency: "Расход топлива (миль/галлон)"
+        fuelEfficiency: "Расход топлива (миль/галлон)",
+        weeklyMileage: "Еженедельный пробег",
+        overallRank: "Общий рейтинг",
+        milesLabel: "миль",
+        placesUp: "позиций вверх"
       },
       driverActions: "Действия водителя (еженедельное обновление)",
       weekOf: "Неделя",
@@ -147,16 +147,9 @@ const resources = {
         period: "Период",
         groupBy: "Группировать по:",
         sortBy: "Сортировать по",
-        allTeams: "Все команды"
-      },
-      managerView: {
-        title: "Панель менеджера автопарка",
-        driverDistribution: "Распределение водителей",
-        spendAnalysis: "Расходы на топливо и другие расходы по уровням",
-        teamPerformance: "Эффективность команды",
-        totalDrivers: "Всего водителей в {{region}}",
-        avgSpend: "Средние ежемесячные расходы на водителя в долларах",
-        avgPoints: "Среднее количество заработанных и использованных баллов по командам"
+        allTeams: "Все команды",
+        allRegions: "Все регионы",
+        allTiers: "Все уровни"
       },
       rank: "Ранг",
       driver: "Водитель",
@@ -198,7 +191,11 @@ const resources = {
         monthly: "Щомісячно",
         miles: "Милі",
         safetyScore: "Оцінка безпеки",
-        fuelEfficiency: "Витрата пального (миль/галон)"
+        fuelEfficiency: "Витрата пального (миль/галон)",
+        weeklyMileage: "Щотижневий пробіг",
+        overallRank: "Загальний рейтинг",
+        milesLabel: "миль",
+        placesUp: "позицій вгору"
       },
       driverActions: "Дії водія (щотижневе оновлення)",
       weekOf: "Тиждень",
@@ -225,16 +222,9 @@ const resources = {
         period: "Період",
         groupBy: "Групувати за:",
         sortBy: "Сортувати за",
-        allTeams: "Усі команди"
-      },
-      managerView: {
-        title: "Панель менеджера автопарку",
-        driverDistribution: "Розподіл водіїв",
-        spendAnalysis: "Витрати на пальне та інші витрати за рівнями",
-        teamPerformance: "Ефективність команди",
-        totalDrivers: "Всього водіїв у {{region}}",
-        avgSpend: "Середні щомісячні витрати на водія в доларах",
-        avgPoints: "Середня кількість зароблених та використаних балів по командах"
+        allTeams: "Усі команди",
+        allRegions: "Усі регіони",
+        allTiers: "Усі рівні"
       },
       rank: "Ранг",
       driver: "Водій",
