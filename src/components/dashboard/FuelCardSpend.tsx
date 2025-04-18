@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
@@ -68,6 +69,7 @@ const chartConfig = {
 };
 
 const FuelCardSpend: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedRegion, setSelectedRegion] = useState('All Regions');
   const [selectedTier, setSelectedTier] = useState('All Tiers');
 
@@ -80,24 +82,26 @@ const FuelCardSpend: React.FC = () => {
       <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
           <BadgeDollarSign className="h-5 w-5 text-dashboard-purple" />
-          <CardTitle>Fuel Card Spend</CardTitle>
+          <CardTitle>{t('fuelCard.title')}</CardTitle>
         </div>
         
         <div className="flex flex-col sm:flex-row gap-2 sm:items-center mt-4 sm:mt-0">
           <div className="flex items-center gap-2">
             <Filter className="h-4 w-4" />
-            <span className="text-sm font-medium">Filters:</span>
+            <span className="text-sm font-medium">{t('filters.label')}</span>
           </div>
           <Select
             value={selectedRegion}
             onValueChange={setSelectedRegion}
           >
             <SelectTrigger className="w-[130px]">
-              <SelectValue placeholder="Region" />
+              <SelectValue placeholder={t('filters.region')} />
             </SelectTrigger>
             <SelectContent>
               {regions.map(region => (
-                <SelectItem key={region} value={region}>{region}</SelectItem>
+                <SelectItem key={region} value={region}>
+                  {region === 'All Regions' ? t('filters.allRegions') : region}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -106,11 +110,13 @@ const FuelCardSpend: React.FC = () => {
             onValueChange={setSelectedTier}
           >
             <SelectTrigger className="w-[130px]">
-              <SelectValue placeholder="Driver Tier" />
+              <SelectValue placeholder={t('fuelCard.driverTier')} />
             </SelectTrigger>
             <SelectContent>
               {driverTiers.map(tier => (
-                <SelectItem key={tier} value={tier}>{tier}</SelectItem>
+                <SelectItem key={tier} value={tier}>
+                  {tier === 'All Tiers' ? t('filters.allTiers') : tier}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -140,14 +146,14 @@ const FuelCardSpend: React.FC = () => {
         </div>
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-500 mb-1">Average Fuel Spend</h4>
+            <h4 className="text-sm font-medium text-gray-500 mb-1">{t('fuelCard.avgFuelSpend')}</h4>
             <p className="text-2xl font-bold text-dashboard-dark">$495.00</p>
-            <p className="text-sm text-green-600">+5.2% from last month</p>
+            <p className="text-sm text-green-600">+5.2% {t('fuelCard.fromLastMonth')}</p>
           </div>
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-500 mb-1">Non-Fuel Transactions</h4>
+            <h4 className="text-sm font-medium text-gray-500 mb-1">{t('fuelCard.nonFuelTransactions')}</h4>
             <p className="text-2xl font-bold text-dashboard-dark">$128.33</p>
-            <p className="text-sm text-green-600">+12.8% from last month</p>
+            <p className="text-sm text-green-600">+12.8% {t('fuelCard.fromLastMonth')}</p>
           </div>
         </div>
       </CardContent>

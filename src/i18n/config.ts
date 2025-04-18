@@ -93,6 +93,15 @@ const resources = {
         totalDrivers: "Total drivers in {{region}}",
         avgSpend: "Average monthly spend per driver shown in dollars",
         avgPoints: "Average monthly points earned and redeemed per driver by team"
+      },
+      // Fuel card
+      fuelCard: {
+        title: "Fuel Card Spend",
+        region: "Region", 
+        driverTier: "Driver Tier",
+        avgFuelSpend: "Average Fuel Spend",
+        nonFuelTransactions: "Non-Fuel Transactions",
+        fromLastMonth: "from last month"
       }
     }
   },
@@ -177,6 +186,14 @@ const resources = {
         totalDrivers: "Всего водителей в {{region}}",
         avgSpend: "Средние ежемесячные расходы на водителя в долларах",
         avgPoints: "Среднее количество заработанных и использованных баллов по командам"
+      },
+      fuelCard: {
+        title: "Расходы по топливной карте",
+        region: "Регион",
+        driverTier: "Уровень водителя",
+        avgFuelSpend: "Средний расход на топливо",
+        nonFuelTransactions: "Нетопливные транзакции",
+        fromLastMonth: "от прошлого месяца"
       }
     }
   },
@@ -261,6 +278,14 @@ const resources = {
         totalDrivers: "Всього водіїв у {{region}}",
         avgSpend: "Середні щомісячні витрати на водія в доларах",
         avgPoints: "Середня кількість зароблених та використаних балів по командах"
+      },
+      fuelCard: {
+        title: "Витрати по паливній картці",
+        region: "Регіон",
+        driverTier: "Рівень водія",
+        avgFuelSpend: "Середні витрати на пальне",
+        nonFuelTransactions: "Непаливні транзакції",
+        fromLastMonth: "від минулого місяця"
       }
     }
   }
