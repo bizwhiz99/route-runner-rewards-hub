@@ -139,8 +139,8 @@ const FuelCardSpend: React.FC = () => {
               <YAxis name="Amount ($)" />
               <Tooltip content={<ChartTooltipContent />} />
               <Legend />
-              <Bar dataKey="fuel" name="Fuel" stackId="a" fill="#6E59A5" />
-              <Bar dataKey="nonFuel" name="Non-Fuel" stackId="a" fill="#9b87f5" />
+              <Bar dataKey="fuel" name={t('fuelCard.avgFuelSpend')} stackId="a" fill="#6E59A5" />
+              <Bar dataKey="nonFuel" name={t('fuelCard.nonFuelTransactions')} stackId="a" fill="#9b87f5" />
             </BarChart>
           </ChartContainer>
         </div>
