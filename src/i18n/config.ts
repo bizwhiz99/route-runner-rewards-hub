@@ -1,3 +1,4 @@
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -192,9 +193,9 @@ i18n
             notEnoughPoints: 'Not enough points',
             needMorePoints: 'You need {{points}} more points to unlock',
             chestUnlocked: 'Chest Unlocked!',
-            chestUnlockedDesc: 'You've earned special rewards!',
+            chestUnlockedDesc: "You've earned special rewards!",
             congratulations: 'Congratulations!',
-            chestRewards: 'You've unlocked special rewards from the chest!'
+            chestRewards: "You've unlocked special rewards from the chest!"
           }
         }
       },
@@ -582,7 +583,7 @@ i18n
           }
         }
       },
-      // Keeping existing Russian translations
+      // Russian translations
       ru: {
         translation: {
           dashboard: 'Панель управления',
@@ -707,74 +708,10 @@ i18n
             chestUnlockedDesc: "Вы получили особые награды!",
             congratulations: "Поздравляем!",
             chestRewards: "Вы разблокировали особые награды из сундука!"
-          },
-          // Other translations from English
-          driverActions: "Действия водителя (Еженедельное обновление)",
-          weekOf: "Неделя",
-          points: "очк.",
-          deadline: "Срок",
-          difficulty: {
-            easy: "легко",
-            medium: "средне",
-            hard: "сложно"
-          },
-          availablePoints: "Доступные очки",
-          pointsThisMonth: "очков накоплено в этом месяце",
-          monthlyPoints: "Ежемесячные очки",
-          pointsUsedThisMonth: "очков использовано в этом месяце",
-          redeemedPoints: "Обмененные очки",
-          totalPointsBalance: "общий баланс очков",
-          tierStatus: "Статус уровня водителя",
-          untilNextTier: "очков до уровня {{tier}}",
-          progressToNextTier: "Прогресс к следующему уровню",
-          categories: "Категории",
-          marketplace: "Магазин наград",
-          pointsBalance: "Ваш баланс очков",
-          redeemButton: "Обменять",
-          tier: "Уровень",
-          rewardEligibleDrivers: "Водители, подходящие для наград",
-          tierPromotionCriteria: "Критерии повышения уровня",
-          weeklyActivity: "Еженедельная активность",
-          cardSwipes: "Использований карты",
-          onTimeDelivery: "Доставка вовремя",
-          routeAdherence: "Соблюдение маршрута",
-          nonFuelPurchases: "Покупки не топлива",
-          nonFuelPurchaseBreakdown: "Разбивка покупок не топлива",
-          purchaseType: "Тип покупки",
-          amount: "Сумма",
-          driver: "Водитель",
-          team: "Команда",
-          region: "Регион",
-          points: "Очки",
-          onTime: "Вовремя %",
-          totalPoints: "Всего очков",
-          criterion: "Критерий",
-          bronzeRequirements: "Требования для Бронзы",
-          silverRequirements: "Требования для Серебра",
-          goldRequirements: "Требования для Золота",
-          rank: "Ранг",
-          filters: {
-            label: "Фильтры:",
-            region: "Регион",
-            team: "Команда",
-            sort: "Сортировать по",
-            startDate: "Начальная дата",
-            endDate: "Конечная дата",
-            tier: "Уровень водителя",
-            allRegions: "Все регионы",
-            allTiers: "Все уровни"
-          },
-          fuelCard: {
-            title: "Расходы по топливной карте",
-            region: "Регион",
-            driverTier: "Уровень водителя",
-            avgFuelSpend: "Сред. расход топлива",
-            nonFuelTransactions: "Транзакции не на топливо",
-            fromLastMonth: "от прошлого месяца"
           }
         }
       },
-      // Keeping existing Ukrainian translations
+      // Ukrainian translations
       uk: {
         translation: {
           dashboard: 'Панель керування',
@@ -855,3 +792,121 @@ i18n
           sound: {
             on: "Звук увімкнено",
             off: "Звук вимкнено",
+            enabled: "Звукові ефекти увімкнено",
+            disabled: "Звукові ефекти вимкнено"
+          },
+          streak: {
+            title: "Серія активності",
+            daily: "Щоденна",
+            weekly: "Щотижнева",
+            highest: "Найвища",
+            days: "днів",
+            weeks: "тижнів",
+            nextMilestone: "Наступний етап",
+            bonusReward: "Бонусна нагорода"
+          },
+          tierChallenge: {
+            title: "Виклик для наступного рівня",
+            progress: "Загальний прогрес",
+            spendChallenge: "Витратьте ${{amount}} цього тижня",
+            otherChallenge: "Досягніть {{amount}} {{unit}}",
+            unlockNextTier: "Виконайте всі завдання, щоб розблокувати рівень {{tier}}"
+          },
+          quests: {
+            title: "Щотижневі завдання",
+            completed: "Виконано",
+            expires: "Закінчується",
+            claim: "Отримати нагороду",
+            expired: "Закінчилося",
+            expiredTitle: "Закінчені завдання",
+            rewardClaimed: "Нагороду отримано!",
+            xpAdded: "+{{xp}} досвіду додано до вашого профілю"
+          },
+          rewards: {
+            chest: "Скриня нагород",
+            filled: "заповнено",
+            pointsToUnlock: "Потрібно ще {{points}} очок",
+            readyToUnlock: "Готово до відкриття!",
+            potentialRewards: "Можливі нагороди всередині",
+            unlockChest: "Відкрити скриню",
+            unlocking: "Відкривається...",
+            notEnoughPoints: "Недостатньо очок",
+            needMorePoints: "Вам потрібно ще {{points}} очок для відкриття",
+            chestUnlocked: "Скриню відкрито!",
+            chestUnlockedDesc: "Ви отримали особливі нагороди!",
+            congratulations: "Вітаємо!",
+            chestRewards: "Ви розблокували особливі нагороди зі скрині!"
+          },
+          // Add missing Ukrainian translations for the other gamification features
+          driverActions: "Дії водія (Щотижневе оновлення)",
+          weekOf: "Тиждень",
+          points: "бали",
+          deadline: "Термін",
+          difficulty: {
+            easy: "легко",
+            medium: "середньо",
+            hard: "складно"
+          },
+          availablePoints: "Доступні бали",
+          pointsThisMonth: "балів накопичено цього місяця",
+          monthlyPoints: "Щомісячні бали",
+          pointsUsedThisMonth: "балів використано цього місяця",
+          redeemedPoints: "Обміняні бали",
+          totalPointsBalance: "загальний баланс балів",
+          tierStatus: "Статус рівня водія",
+          untilNextTier: "балів до рівня {{tier}}",
+          progressToNextTier: "Прогрес до наступного рівня",
+          categories: "Категорії",
+          marketplace: "Магазин нагород",
+          pointsBalance: "Ваш баланс балів",
+          redeemButton: "Обміняти",
+          tier: "Рівень",
+          rewardEligibleDrivers: "Водії, що підходять для нагород",
+          tierPromotionCriteria: "Критерії підвищення рівня",
+          weeklyActivity: "Щотижнева активність",
+          cardSwipes: "Використань картки",
+          onTimeDelivery: "Доставка вчасно",
+          routeAdherence: "Дотримання маршруту",
+          nonFuelPurchases: "Покупки не пального",
+          nonFuelPurchaseBreakdown: "Розбивка покупок не пального",
+          purchaseType: "Тип покупки",
+          amount: "Сума",
+          driver: "Водій",
+          team: "Команда",
+          region: "Регіон",
+          onTime: "Вчасно %",
+          totalPoints: "Всього балів",
+          criterion: "Критерій",
+          bronzeRequirements: "Вимоги для Бронзи",
+          silverRequirements: "Вимоги для Срібла",
+          goldRequirements: "Вимоги для Золота",
+          rank: "Ранг",
+          filters: {
+            label: "Фільтри:",
+            region: "Регіон",
+            team: "Команда",
+            sort: "Сортувати за",
+            startDate: "Початкова дата",
+            endDate: "Кінцева дата",
+            tier: "Рівень водія",
+            allRegions: "Всі регіони",
+            allTiers: "Всі рівні"
+          },
+          fuelCard: {
+            title: "Витрати по паливній картці",
+            region: "Регіон",
+            driverTier: "Рівень водія",
+            avgFuelSpend: "Сер. витрати на паливо",
+            nonFuelTransactions: "Транзакції не на паливо",
+            fromLastMonth: "від минулого місяця"
+          }
+        }
+      }
+    },
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false,
+    },
+  });
+
+export default i18n;
