@@ -1,3 +1,4 @@
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -140,6 +141,24 @@ const resources = {
         milesLabel: "millas",
         placesUp: "puestos arriba"
       },
+      driverActions: "Acciones del Conductor (Actualización Semanal)",
+      weekOf: "Semana de",
+      points: "pts",
+      deadline: "Fecha límite",
+      difficulty: {
+        easy: "fácil",
+        medium: "medio",
+        hard: "difícil"
+      },
+      availablePoints: "Puntos Disponibles",
+      monthlyPoints: "Puntos Mensuales",
+      redeemedPoints: "Puntos Canjeados",
+      tierStatus: "Estado del Nivel del Conductor",
+      untilNextTier: "puntos hasta el Nivel {{tier}}",
+      categories: "Categorías",
+      marketplace: "Mercado de Recompensas",
+      pointsBalance: "Tu Balance de Puntos",
+      redeemButton: "Canjear",
       filters: {
         label: "Filtros:",
         region: "Región",
@@ -151,6 +170,14 @@ const resources = {
         allRegions: "Todas las Regiones",
         allTiers: "Todos los Niveles"
       },
+      rank: "Rango",
+      driver: "Conductor",
+      team: "Equipo",
+      region: "Región",
+      tier: "Nivel",
+      points: "Puntos",
+      onTime: "A tiempo %",
+      routeAdherence: "Adherencia a la Ruta",
       fuelCard: {
         title: "Gasto de Tarjeta de Combustible",
         region: "Región",
@@ -206,6 +233,24 @@ const resources = {
         milesLabel: "मील",
         placesUp: "स्थान ऊपर"
       },
+      driverActions: "ड्राइवर क्रियाएं (साप्ताहिक अपडेट)",
+      weekOf: "सप्ताह",
+      points: "अंक",
+      deadline: "समय सीमा",
+      difficulty: {
+        easy: "आसान",
+        medium: "मध्यम",
+        hard: "कठिन"
+      },
+      availablePoints: "उपलब्ध अंक",
+      monthlyPoints: "मासिक अंक",
+      redeemedPoints: "रिडीम किए गए अंक",
+      tierStatus: "ड्राइवर स्तर स्थिति",
+      untilNextTier: "{{tier}} स्तर तक अंक",
+      categories: "श्रेणियाँ",
+      marketplace: "पुरस्कार बाज़ार",
+      pointsBalance: "आपका अंक शेष",
+      redeemButton: "रिडीम करें",
       filters: {
         label: "फ़िल्टर:",
         region: "क्षेत्र",
@@ -217,6 +262,14 @@ const resources = {
         allRegions: "सभी क्षेत्र",
         allTiers: "सभी स्तर"
       },
+      rank: "रैंक",
+      driver: "ड्राइवर",
+      team: "टीम",
+      region: "क्षेत्र",
+      tier: "स्तर",
+      points: "अंक",
+      onTime: "समय पर %",
+      routeAdherence: "मार्ग अनुपालन",
       fuelCard: {
         title: "ईंधन कार्ड खर्च",
         region: "क्षेत्र",
